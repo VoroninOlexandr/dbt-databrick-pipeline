@@ -1,0 +1,42 @@
+models:
+  - name: stg_job_postings
+    description: Staging model for job postings.
+    columns:
+      - name: job_id
+        description: The scraper's posting id.
+      - name: job_title
+        description: Posting title as scraped.
+      - name: company_name
+        description: Employer name, trimmed.
+      - name: job_location
+        description: Posting location as scraped.
+      - name: source_platform
+        description: Posting platform with 'via' prefix removed.
+      - name: job_posted_at
+        description: Relative posted time as scraped.
+      - name: job_salary
+        description: Raw salary text as scraped.
+      - name: job_schedule_type
+        description: Schedule type as scraped (full-time, part-time, etc.).
+      - name: job_work_from_home
+        description: True when the posting is flagged remote.
+      - name: job_extensions_raw
+        description: Raw extensions string as scraped.
+      - name: searched_at
+        description: Scrape timestamp (renamed from search_time).
+      - name: search_date
+        description: Scrape date.
+      - name: search_term
+        description: The role the scraper searched for.
+      - name: search_location
+        description: Location parameter the scraper searched under.
+
+  - name: stg_job_skills
+    description: Staging model for job skills.
+    columns:
+      - name: job_id
+        description: Foreign key to job postings.
+      - name: skill_id
+        description: Skill key.
+      - name: skill_keyword
+        description: Skill text as extracted, trimmed.
