@@ -30,8 +30,8 @@ SELECT
     search_term,
     search_location,
     {% for keyword in extension_keywords %}
-    array_contains(job_extention, "{{keyword}}") AS has_{{keyword | lower | replace(' ', '_')}}
-    {{"," if not loop.last}}
+    array_contains(job_extention, "{{keyword}}") AS has_{{slugify(keyword)}}
+    {{- "," if not loop.last}}
     {% endfor%}
 FROM parsed
 )
