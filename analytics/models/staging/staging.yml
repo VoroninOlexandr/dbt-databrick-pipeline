@@ -20,8 +20,6 @@ models:
         description: Schedule type as scraped (full-time, part-time, etc.).
       - name: job_work_from_home
         description: True when the posting is flagged remote.
-      - name: job_extensions_raw
-        description: Raw extensions string as scraped.
       - name: searched_at
         description: Scrape timestamp (renamed from search_time).
       - name: search_date
@@ -30,6 +28,14 @@ models:
         description: The role the scraper searched for.
       - name: search_location
         description: Location parameter the scraper searched under.
+      - name: has_no_degree_mentioned
+        description: True if posting mentions no degree is required.
+      - name: has_health_insurance
+        description: True if posting offers health insurance.
+      - name: has_dental_insurance
+        description: True if posting offers dental insurance.
+      - name: has_paid_time_off
+        description: True if posting offers paid time off (PTO).
 
   - name: stg_job_skills
     description: Staging model for job skills.
