@@ -22,13 +22,22 @@ SELECT
     job_location,
     REGEXP_REPLACE(job_via,'^via','') as source_platform,
     job_posted_at,
-    job_salary,
+
     job_schedule_type,
     job_work_from_home,
     search_time as searched_at,
     search_date,
     search_term,
     search_location,
+    job_salary,
+    {{parse_salary('min')}} AS salary_min,
+    {{parse_salary('max')}} AS salary_max,
+    ({{parse_salary('min')}} + {{parse_salary('max')}}) / 2 AS avg_salary,
+    NULLIF(REGEXP_EXTRACT(job_salary, 'an? (year|hour|month|day|week)$', 1), '') AS salary_period,
+    CASE
+        WHEN job_salary IS NOT NULL
+        THEN COALESCE(NULLIF(TRIM(REGEXP_EXTRACT(job_salary, '^([^0-9]+)', 1)), ''), 'USD')
+    END AS salary_currency,
     {% for keyword in extension_keywords %}
     array_contains(job_extention, "{{keyword}}") AS has_{{slugify(keyword)}}
     {{- "," if not loop.last}}
@@ -38,3 +47,5 @@ FROM parsed
 
 SELECT *
 FROM cleaned
+
+
