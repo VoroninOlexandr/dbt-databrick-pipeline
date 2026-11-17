@@ -14,8 +14,6 @@ models:
         description: Posting platform with 'via' prefix removed.
       - name: job_posted_at
         description: Relative posted time as scraped.
-      - name: job_salary
-        description: Raw salary text as scraped.
       - name: job_schedule_type
         description: Schedule type as scraped (full-time, part-time, etc.).
       - name: job_work_from_home
@@ -28,6 +26,18 @@ models:
         description: The role the scraper searched for.
       - name: search_location
         description: Location parameter the scraper searched under.
+      - name: job_salary
+        description: Raw salary text as scraped.
+      - name: salary_min
+        description: Lower bound parsed from salary text.
+      - name: salary_max
+        description: Upper bound parsed from salary text.
+      - name: salary_avg
+        description: Average midpoint between salary_min and salary_max.
+      - name: salary_period
+        description: Pay period parsed from salary text (year, hour, month, day, week).
+      - name: salary_currency
+        description: Currency symbol or code parsed from salary text (defaults to USD).
       - name: has_no_degree_mentioned
         description: True if posting mentions no degree is required.
       - name: has_health_insurance
