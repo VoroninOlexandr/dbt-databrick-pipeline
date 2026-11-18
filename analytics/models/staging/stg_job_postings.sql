@@ -4,9 +4,9 @@
 
 
 With source AS(
-SELECT *
-FROM {{ source('jobs','raw_job_postings') }}
-WHERE ERROR IS NOT TRUE
+    SELECT *
+    FROM {{ source('jobs','raw_job_postings') }}
+    WHERE ERROR IS NOT TRUE AND job_id IS NOT NULL
 ),
 parsed AS(
     SELECT *,

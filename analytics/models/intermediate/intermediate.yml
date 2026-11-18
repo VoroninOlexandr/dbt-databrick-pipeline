@@ -8,8 +8,14 @@ models:
       dim_skill joins these counts onto the seed taxonomy and serves them.
     columns:
       - name: skill_id
+        data_tests:
+          - unique
+          - not_null
         description: Skill key; the grain.
       - name: postings_with_skill
+        data_tests:
+          - not_null
+          - not_negative
         description: >
           Distinct jobs observed with this skill in staging. Orphan rows would count
           here by design; there are 0 today.

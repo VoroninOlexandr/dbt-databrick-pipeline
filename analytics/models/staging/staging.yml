@@ -3,6 +3,8 @@ models:
     description: Staging model for job postings.
     columns:
       - name: job_id
+        data_tests:
+          - not_null
         description: The scraper's posting id.
       - name: job_title
         description: Posting title as scraped.
@@ -24,17 +26,31 @@ models:
         description: Scrape date.
       - name: search_term
         description: The role the scraper searched for.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Data Engineer','Data Analyst','Data Scientist']
       - name: search_location
         description: Location parameter the scraper searched under.
       - name: job_salary
         description: Raw salary text as scraped.
       - name: salary_min
+        data_tests:
+          - not_negative
         description: Lower bound parsed from salary text.
       - name: salary_max
+        data_tests:
+          - not_negative
         description: Upper bound parsed from salary text.
       - name: salary_avg
+        data_tests:
+          - not_negative
         description: Average midpoint between salary_min and salary_max.
       - name: salary_period
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['year', 'hour', 'month', 'day', 'week']
         description: Pay period parsed from salary text (year, hour, month, day, week).
       - name: salary_currency
         description: Currency symbol or code parsed from salary text (defaults to USD).
@@ -51,8 +67,15 @@ models:
     description: Staging model for job skills.
     columns:
       - name: job_id
+        data_tests:
+          - not_null
         description: Foreign key to job postings.
       - name: skill_id
+        data_tests:
+          - not_null
         description: Skill key.
       - name: skill_keyword
+        data_tests:
+          - not_null
+          - not_empty_string
         description: Skill text as extracted, trimmed.
