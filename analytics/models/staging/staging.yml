@@ -79,3 +79,21 @@ models:
           - not_null
           - not_empty_string
         description: Skill text as extracted, trimmed.
+
+unit_tests:
+  - name: test_parse_salary_shape
+    description: "This handles a range, a single value, and no salary at all"
+    model: stg_job_postings
+    given:
+      - input: source('jobs','raw_job_postings')
+        rows:
+          - {job_id: 1, job_salary: "100K–154K a year"}
+          - {job_id: 2, job_salary: "43.50 an hour"}
+          - {job_id: 3, job_salary: "544k–1M a year"}
+          - {job_id: 4, job_salary: null}
+    expect:
+      rows:
+        - {job_id: 1, salary_min: 100000.00, salary_max: 154000.00, salary_avg: 127000.00, salary_period: 'year', salary_currency: 'USD'}
+        - {job_id: 2, salary_min: 43.50,     salary_max: 43.50,     salary_avg: 43.50,     salary_period: 'hour', salary_currency: 'USD'}
+        - {job_id: 3, salary_min: 544000.00, salary_max: 1000000.0, salary_avg: 772000.00, salary_period: 'year', salary_currency: 'USD'}
+        - {job_id: 4, salary_min: null,      salary_max: null,      salary_avg: null,      salary_period: null,   salary_currency: null}
