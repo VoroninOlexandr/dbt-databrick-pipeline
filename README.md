@@ -2,6 +2,8 @@
 
 End-to-end analytics engineering pipeline that ingests ~843K raw job scrapes and ~3.3M skill records into Databricks Unity Catalog, transforms them with dbt 2.0 into a tested Star Schema (**491,140 unique job postings** across **65,970 companies**), tracks daily changes with SCD Type 2 snapshots, and powers six market and salary analyses.
 
+**Live Documentation (dbt Docs):** https://voroninolexandr.github.io/dbt-databrick-pipeline/
+
 ## Tech Stack
 
 - **Data Platform:** Databricks (Unity Catalog, Serverless SQL Warehouse, Delta Lake)
